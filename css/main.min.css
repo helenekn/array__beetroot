@@ -78,9 +78,9 @@ html {
   width: 350px;
 }
 .section__answer {
-  padding: 120px;
+  padding: 120px 200px;
 }
 .section__answer p {
   margin-top: 20px;
-  text-align: center;
+  text-align: left;
 }/*# sourceMappingURL=main.min.css.map */

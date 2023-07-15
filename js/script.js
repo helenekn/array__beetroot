@@ -98,5 +98,5 @@ function changeIsBought(arr, thing, callback) {
    });
 }
 
-console.log(changeIsBought(shoppingList, "bread", showSoppingList));
 console.log(shoppingList);
+console.log(changeIsBought(shoppingList, "bread", showSoppingList));
