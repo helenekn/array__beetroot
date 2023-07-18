@@ -1,63 +1,57 @@
 "use strict";
-//---------task 1---------//
 
 let shoppingList = [
    {
       name: "bread",
       price: 20,
       amount: 2,
-      sum: 40,
       isBought: false,
    },
    {
       name: "rice",
       price: 40,
       amount: 1,
-      sum: 40,
       isBought: false,
    },
    {
       name: "tomato",
       price: 60,
       amount: 1,
-      sum: 60,
       isBought: true,
    },
    {
       name: "cake",
       price: 50,
       amount: 4,
-      sum: 200,
       isBought: true,
    },
    {
       name: "pepsi",
       price: 18,
       amount: 3,
-      sum: 54,
       isBought: false,
    },
 ];
 
+function addSum(arr) {
+   arr.forEach((el) => {
+      el.sum = el.price * el.amount;
+   });
+}
+addSum(shoppingList);
+////---------------------------------------------------////////////
 let btns = document.querySelectorAll(".button");
 let answers = document.querySelectorAll(".answer");
 let list = document.querySelector(".list");
-
-// function markPurchase(arr) {
-//    arr.forEach((item, i) => {
-//       let sign = "";
-//       if (arr.isBought) {
-//          sign = "+";
-//       } else sign = "-";
-//    });
-// }
 
 shoppingList.forEach((item, i) => {
    let sign = "";
    if (item.isBought) {
       sign = "+";
    } else sign = "-";
-   list.innerHTML += `<p>${i + 1}. ${item.name} ${sign}</p>`;
+   list.innerHTML += `<p>${i + 1}. ${item.name}  /  ${
+      item.amount
+   } шт. ${sign}</p>`;
 });
 
 showSoppingList(shoppingList);
@@ -74,7 +68,7 @@ function outputSortShoppingList() {
    });
 }
 
-//------task 1-------------//
+//--------------------task 1----------------------------//
 
 function showSoppingList(arr) {
    let temp = arr.length;
@@ -89,7 +83,15 @@ function showSoppingList(arr) {
 }
 console.log(showSoppingList(shoppingList));
 
-function changeIsBought(arr, thing, callback) {
+function showSoppingList_1(arr) {
+   arr.sort((a, b) => a.isBought - b.isBought);
+   return arr;
+}
+console.log(showSoppingList_1(shoppingList));
+
+//--------------------------- task 2 --------------------------//
+
+function changeIsBought(arr, item, callback) {
    arr.forEach((el) => {
       if (el.name === thing) {
          el.isBought = true;
@@ -100,3 +102,123 @@ function changeIsBought(arr, thing, callback) {
 
 console.log(shoppingList);
 console.log(changeIsBought(shoppingList, "bread", showSoppingList));
+
+//--------------------------task 1 norma --------------------------//
+
+function removeProduct(arr, item) {
+   let newShoppingList = [];
+   for (let product of arr) {
+      if (product.name !== item) {
+         newShoppingList.push(product);
+      } else continue;
+   }
+   return newShoppingList;
+}
+
+console.log(removeProduct(shoppingList, "bread"));
+
+//------------------------task 2 norma ------------------------------//
+
+// let shoppingList = [
+//    {
+//       name: "bread",
+//       price: 20,
+//       amount: 2,
+//       isBought: false,
+//    },
+//    {
+//       name: "rice",
+//       price: 40,
+//       amount: 1,
+//       isBought: false,
+//    },
+//    {
+//       name: "tomato",
+//       price: 60,
+//       amount: 1,
+//       isBought: true,
+//    },
+//    {
+//       name: "cake",
+//       price: 50,
+//       amount: 3,
+//       isBought: true,
+//    },
+//    {
+//       name: "pepsi",
+//       price: 18,
+//       amount: 3,
+//       isBought: false,
+//    },
+// ];
+
+function addProduct(arr, product) {
+   let index = arr.findIndex((item) => item.name === product);
+   if (index === -1) {
+      arr.push({ name: product, price: 0, amount: 1, isBought: false });
+   } else {
+      arr[index].amount += 1;
+   }
+   return arr;
+}
+console.log(addProduct(shoppingList, "pepsi"));
+console.log(addProduct(shoppingList, "orange"));
+
+///--------------------------task 1 max ------------------------------///
+// let shoppingList = [
+//    {
+//       name: "bread",
+//       price: 20,
+//       amount: 2,
+//       isBought: false,
+//    },
+//    {
+//       name: "rice",
+//       price: 40,
+//       amount: 1,
+//       isBought: false,
+//    },
+//    {
+//       name: "tomato",
+//       price: 60,
+//       amount: 1,
+//       isBought: true,
+//    },
+//    {
+//       name: "cake",
+//       price: 50,
+//       amount: 3,
+//       isBought: true,
+//    },
+//    {
+//       name: "pepsi",
+//       price: 18,
+//       amount: 3,
+//       isBought: false,
+//    },
+// ];
+function calculatePurchaseAmount(arr) {
+   return arr.reduce(
+      (accum, current) => accum + current.price * current.amount,
+      0
+   );
+}
+console.log(calculatePurchaseAmount(shoppingList));
+
+//////-----------------------task 2 max ----------------------------////
+
+function calculateUnpurchase(arr) {
+   newArr = arr.filter((item) => item.isBought === false);
+   return calculatePurchaseAmount(newArr);
+}
+console.log(calculateUnpurchase(shoppingList));
+
+function sortPurchase(arr) {
+   return arr.sort((a, b) => a.price * a.amount - b.price * b.amount);
+}
+console.log(sortPurchase(shoppingList));
+
+function sortReversePurchase(arr) {
+   return arr.sort((a, b) => a.price * a.amount - b.price * b.amount).reverse();
+}
+console.log(sortReversePurchase(shoppingList));
